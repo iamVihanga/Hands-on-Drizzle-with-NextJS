@@ -1,19 +1,26 @@
-import { wait } from "@/lib/utils";
+import { db } from "@/db";
+import { post } from "@/db/schema";
+import { executeQuery } from "@/db/utils/executeQuery";
+import { eq } from "drizzle-orm";
 
 export async function getPostById(id: number) {
-	await wait();
-	return {
-		id: 1,
-		userId: 1,
-		title: "mock title",
-		shortDescription: "mock short description",
-		content: "mock content",
-		categoryId: 1,
-		tags: [
-			{
-				postId: 1,
-				tagId: 1,
-			},
-		],
-	};
+  return executeQuery({
+    queryFn: async () =>
+      await db.query.post.findFirst({
+        columns: {
+          id: true,
+          title: true,
+          shortDescription: true,
+          userId: true,
+          categoryId: true,
+          content: true,
+        },
+        where: eq(post.id, id),
+        with: {
+          tags: true,
+        },
+      }),
+    serverErrorMessage: "getPostById",
+    isProtected: false,
+  });
 }

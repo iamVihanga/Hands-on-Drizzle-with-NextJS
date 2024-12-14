@@ -9,12 +9,6 @@ const mock: CategorySchema[] = [
     name: "React",
   },
   {
-    name: "Vue",
-  },
-  {
-    name: "Angular",
-  },
-  {
     name: "Python",
   },
   {
@@ -25,9 +19,6 @@ const mock: CategorySchema[] = [
   },
   {
     name: "DevOps",
-  },
-  {
-    name: "APIs",
   },
 ];
 
